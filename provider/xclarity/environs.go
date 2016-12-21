@@ -102,7 +102,7 @@ func (xclarityEnviron) PrepareForBootstrap(ctx environs.BootstrapContext) error 
 	return nil
 }
 
-func (xclarityEnviron) Bootstrap(
+func (env xclarityEnviron) Bootstrap(
 	ctx environs.BootstrapContext, 
 	params environs.BootstrapParams,
 ) (*environs.BootstrapResult, error) {
