@@ -210,6 +210,7 @@ func Main(args []string) int {
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "error: %v\n", err)
 	}
+
 	return code
 }
 

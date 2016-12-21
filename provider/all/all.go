@@ -15,4 +15,5 @@ import (
 	_ "github.com/juju/juju/provider/openstack"
 	_ "github.com/juju/juju/provider/rackspace"
 	_ "github.com/juju/juju/provider/vsphere"
+	_ "github.com/juju/juju/provider/xclarity"
 )
