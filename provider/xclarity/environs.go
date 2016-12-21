@@ -7,7 +7,6 @@ import (
 	"github.com/juju/juju/environs/config"
 	"github.com/juju/juju/constraints"
 	"github.com/juju/juju/network"
-	"github.com/juju/juju/storage"
 	"github.com/juju/juju/provider/common"
 	"github.com/juju/juju/instance"
 )
@@ -132,8 +131,8 @@ func (xclarityEnviron) Destroy() error {
 	return errors.NotImplementedf("Destroy")
 }
 
-func (xclarityEnviron) DestroyController(controllerUUID string) error {
-	return errors.NotImplementedf("DestroyController")
+func (env xclarityEnviron) DestroyController(controllerUUID string) error {
+	return common.Destroy(env)
 }
 
 func (xclarityEnviron) PrecheckInstance(series string, cons constraints.Value, placement string) error {
@@ -173,12 +172,4 @@ func (xclarityEnviron) Ports() ([]network.PortRange, error) {
 
 func (e xclarityEnviron) Config() *config.Config {
 	return &e.config
-}
-
-func (xclarityEnviron) StorageProviderTypes() ([]storage.ProviderType, error) {
-	return nil, errors.NotImplementedf("StorageProviderTypes")
-}
-
-func (xclarityEnviron) StorageProvider(storage.ProviderType) (storage.Provider, error) {
-	return nil, errors.NotImplementedf("StorageProvider")
 }

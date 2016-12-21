@@ -26,6 +26,8 @@ func (env xclarityEnviron) AllInstances() ([]instance.Instance, error) {
 // For XClarity, I'm assuming that a REST post with parameters, constraints will be sent
 // to XClarity, and response with information that to populate StartInstanceResult.
 func (env xclarityEnviron) StartInstance(args environs.StartInstanceParams) (*environs.StartInstanceResult, error) {
+	// TODO: start an instance through XClarity, and acquire responses that can populate the following struct
+	// for juju to register and manage this intance.
 	hardware := instance.HardwareCharacteristics{}
     volumes := make([]storage.Volume, 0)
 	networkInfo := make([]network.InterfaceInfo, 0)
@@ -42,7 +44,8 @@ func (env xclarityEnviron) StartInstance(args environs.StartInstanceParams) (*en
 }
 
 func (xclarityEnviron) StopInstances(...instance.Id) error {
-	return errors.NotImplementedf("StopInstance")
+	// TODO: stop an instance through XClarity.
+	return nil
 }
 
 func (xclarityEnviron) MaintainInstance(args environs.StartInstanceParams) error {
