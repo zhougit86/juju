@@ -4,7 +4,6 @@ import (
 	"sync"
 	"github.com/juju/errors"
 	"github.com/juju/juju/environs"
-	"github.com/juju/juju/instance"
 	"github.com/juju/juju/environs/config"
 	"github.com/juju/juju/constraints"
 	"github.com/juju/juju/network"
@@ -33,29 +32,7 @@ func (xclarityEnviron) Provider() environs.EnvironProvider {
 	return providerInstance
 }
 
-//********************************************
-//
-//	InstanceBroker interfaces
-//
-//  This interface is part of the Environ
-//  interface.  
-//********************************************
 
-func (e xclarityEnviron) AllInstances() ([]instance.Instance, error) {
-	return e.Instances([]instance.Id{BootstrapInstanceId})
-}
-
-func (xclarityEnviron) StartInstance(args environs.StartInstanceParams) (*environs.StartInstanceResult, error) {
-	return nil, errors.NotImplementedf("StartInstance")
-}
-
-func (xclarityEnviron) StopInstances(...instance.Id) error {
-	return errors.NotImplementedf("StopInstance")
-}
-
-func (xclarityEnviron) MaintainInstance(args environs.StartInstanceParams) error {
-	return errors.NotImplementedf("MaintainInstance")
-}
 
 //********************************************
 //
