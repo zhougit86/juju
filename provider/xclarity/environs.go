@@ -9,6 +9,7 @@ import (
 	"github.com/juju/juju/network"
 	"github.com/juju/juju/storage"
 	"github.com/juju/juju/provider/common"
+	"github.com/juju/juju/instance"
 )
 
 // Environ is specific to each provider. 
@@ -31,8 +32,6 @@ type xclarityEnviron struct {
 func (xclarityEnviron) Provider() environs.EnvironProvider {
 	return providerInstance
 }
-
-
 
 //********************************************
 //
