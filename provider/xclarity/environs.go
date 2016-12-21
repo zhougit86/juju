@@ -9,6 +9,7 @@ import (
 	"github.com/juju/juju/constraints"
 	"github.com/juju/juju/network"
 	"github.com/juju/juju/storage"
+	"github.com/juju/juju/provider/common"
 )
 
 // Environ is specific to each provider. 
@@ -105,8 +106,7 @@ func (xclarityEnviron) Bootstrap(
 	ctx environs.BootstrapContext, 
 	params environs.BootstrapParams,
 ) (*environs.BootstrapResult, error) {
-	// Not implemented
-	return nil, errors.NotImplementedf("Bootstrap")
+	return common.Bootstrap(ctx, env, params)
 }
 
 func (xclarityEnviron) BootstrapMessage() string {
