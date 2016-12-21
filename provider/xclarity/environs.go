@@ -1,6 +1,7 @@
 package xclarity
 
 import (
+	"sync"
 	"github.com/juju/errors"
 	"github.com/juju/juju/environs"
 	"github.com/juju/juju/instance"
@@ -13,6 +14,7 @@ import (
 // Environ is specific to each provider. 
 // Here we define Environ for Lenovo XClarity.
 type xclarityEnviron struct {
+	mu        sync.Mutex
 	name      string
 	uuid      string
 	config    config.Config
@@ -93,7 +95,10 @@ func (e xclarityEnviron) Instances(ids []instance.Id) (instances []instance.Inst
 //  initial Juju controller.
 //********************************************
 func (xclarityEnviron) PrepareForBootstrap(ctx environs.BootstrapContext) error {
-	return errors.NotImplementedf("PrepareForBootstrap")
+	logger.Debugf("xclarity PrepareForBootstrap")
+
+	// If nothing, return nil
+	return nil
 }
 
 func (xclarityEnviron) Bootstrap(
@@ -112,12 +117,35 @@ func (xclarityEnviron) Create(params environs.CreateParams) error {
 	return errors.NotImplementedf("Create: "+params.ControllerUUID)
 }
 
-func (xclarityEnviron) ConstraintsValidator() (constraints.Validator, error) {
-	return nil, errors.NotImplementedf("ConstraintsValidator")
+// Borrowed from cloudsigma/environcaps.go
+var unsupportedConstraints = []string{
+	constraints.Container,
+	constraints.InstanceType,
+	constraints.Tags,
+	constraints.VirtType,
 }
 
-func (xclarityEnviron) SetConfig(cfg *config.Config) error {
-	return errors.NotImplementedf("SetConfig")
+func (xclarityEnviron) ConstraintsValidator() (constraints.Validator, error) {
+	validator := constraints.NewValidator()
+	validator.RegisterUnsupported(unsupportedConstraints)
+	return validator, nil
+}
+
+func (env xclarityEnviron) SetConfig(cfg *config.Config) error {
+	env.mu.Lock()
+	defer env.mu.Unlock()
+
+	var old config.Config
+	if &env.config != nil {
+		old = env.config
+	}
+	ecfg, err := providerInstance.Validate(cfg, &old)
+	if err != nil {
+		return err
+	}
+	env.config = *ecfg
+
+	return nil
 }
 
 func (xclarityEnviron) ControllerInstances(controllerUUID string) ([]instance.Id, error) {

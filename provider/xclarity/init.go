@@ -4,8 +4,11 @@
 package xclarity
 
 import (
+	"github.com/juju/loggo"
 	"github.com/juju/juju/environs"
 )
+
+var logger = loggo.GetLogger("juju.provider.xclarity")
 
 const (
 	providerType = "xclarity"

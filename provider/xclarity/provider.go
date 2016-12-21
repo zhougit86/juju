@@ -9,16 +9,13 @@ import (
 	// "fmt"
 
 	// "github.com/juju/errors"
-	"github.com/juju/loggo"
+	// "github.com/juju/loggo"
 	// "github.com/juju/utils"
 
 	// "github.com/juju/juju/cloud"
 	"github.com/juju/juju/environs"
 	"github.com/juju/juju/environs/config"
 )
-
-var logger = loggo.GetLogger("juju.provider.xclarity")
-
 
 type xclarityProvider struct {
 	environCredentials
