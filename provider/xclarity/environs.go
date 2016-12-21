@@ -7,6 +7,7 @@ import (
 	"github.com/juju/juju/environs/config"
 	"github.com/juju/juju/constraints"
 	"github.com/juju/juju/network"
+	"github.com/juju/juju/storage"
 )
 
 // Environ is specific to each provider. 
@@ -25,7 +26,7 @@ type xclarityEnviron struct {
 //  - Provider
 //
 //********************************************
-func (xclarityEnviron) Provider() xclarityProvider {
+func (xclarityEnviron) Provider() environs.EnvironProvider {
 	return providerInstance
 }
 
@@ -168,4 +169,12 @@ func (xclarityEnviron) Ports() ([]network.PortRange, error) {
 
 func (e xclarityEnviron) Config() *config.Config {
 	return &e.config
+}
+
+func (xclarityEnviron) StorageProviderTypes() ([]storage.ProviderType, error) {
+	return nil, errors.NotImplementedf("StorageProviderTypes")
+}
+
+func (xclarityEnviron) StorageProvider(storage.ProviderType) (storage.Provider, error) {
+	return nil, errors.NotImplementedf("StorageProvider")
 }

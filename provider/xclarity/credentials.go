@@ -4,7 +4,7 @@
 package xclarity
 
 import (
-	"github.com/juju/errors"
+	// "github.com/juju/errors"
 	"github.com/juju/juju/cloud"
 	"github.com/juju/juju/environs"
 )
@@ -41,7 +41,7 @@ func (environCredentials) CredentialSchemas() map[cloud.AuthType]cloud.Credentia
 
 // DetectCredentials is part of the environs.ProviderCredentials interface.
 func (environCredentials) DetectCredentials() (*cloud.CloudCredential, error) {
-	return nil, errors.NotFoundf("credentials")
+	return cloud.NewEmptyCloudCredential(), nil
 }
 
 // FinalizeCredential is part of the environs.ProviderCredentials interface.

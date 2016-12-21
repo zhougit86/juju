@@ -4,7 +4,7 @@
 package xclarity
 
 import (
-	// "github.com/juju/juju/environs"
+	"github.com/juju/juju/environs"
 )
 
 const (
@@ -13,6 +13,6 @@ const (
 
 var providerInstance = xclarityProvider{}
 
-//func init() {
-//	environs.RegisterProvider(providerType, providerInstance)
-//}
+func init() {
+	environs.RegisterProvider(providerType, providerInstance)
+}

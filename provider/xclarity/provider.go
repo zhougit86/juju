@@ -55,7 +55,7 @@ func (xclarityProvider) Validate(cfg, oldCfg *config.Config) (*config.Config, er
 //  which captures things needed to communicate
 //  with a particular cloud, eg. ec2.
 //********************************************
-func (xclarityProvider) Open(params environs.OpenParams) (xclarityEnviron, error) {
+func (xclarityProvider) Open(params environs.OpenParams) (environs.Environ, error) {
 	env := &xclarityEnviron{
 		name: params.Config.Name(), 
 		uuid: params.Config.UUID(), 
@@ -64,4 +64,3 @@ func (xclarityProvider) Open(params environs.OpenParams) (xclarityEnviron, error
 	}
 	return *env, nil	
 }
-
