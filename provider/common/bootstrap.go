@@ -164,6 +164,7 @@ func BootstrapInstance(ctx environs.BootstrapContext, env environs.Environ, args
 		fmt.Fprintf(ctx.GetStderr(), "   %s\r", info)
 		return nil
 	}
+
 	result, err := env.StartInstance(environs.StartInstanceParams{
 		ControllerUUID:  args.ControllerConfig.ControllerUUID(),
 		Constraints:     args.BootstrapConstraints,
@@ -174,6 +175,7 @@ func BootstrapInstance(ctx environs.BootstrapContext, env environs.Environ, args
 		StatusCallback:  instanceStatus,
 		CleanupCallback: statusCleanup,
 	})
+
 	if err != nil {
 		return nil, "", nil, errors.Annotate(err, "cannot start bootstrap instance")
 	}
@@ -184,6 +186,7 @@ func BootstrapInstance(ctx environs.BootstrapContext, env environs.Environ, args
 		padding := make([]string, 40-len(msg))
 		msg += strings.Join(padding, " ")
 	}
+	fmt.Fprintf(ctx.GetStderr(), "-feng end\n")	
 	fmt.Fprintln(ctx.GetStderr(), msg)
 
 	finalize := func(ctx environs.BootstrapContext, icfg *instancecfg.InstanceConfig, opts environs.BootstrapDialOpts) error {

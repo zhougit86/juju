@@ -9,6 +9,7 @@ import (
 	"github.com/juju/juju/network"
 	"github.com/juju/juju/provider/common"
 	"github.com/juju/juju/instance"
+	// "github.com/juju/utils/arch"
 )
 
 // Environ is specific to each provider. 
@@ -81,11 +82,18 @@ func (env xclarityEnviron) Bootstrap(
 	ctx environs.BootstrapContext, 
 	params environs.BootstrapParams,
 ) (*environs.BootstrapResult, error) {
+
+	// result := environs.BootstrapResult{
+	// 	Arch: arch.AMD64,
+	// 	Series: "boostraped series",
+	// 	Finalize: nil,
+	// }
 	return common.Bootstrap(ctx, env, params)
+	// return &result, nil
 }
 
 func (xclarityEnviron) BootstrapMessage() string {
-	return "hellow XClarity!"	
+	return "xClarity bootstraped! hello world."	
 }
 
 func (xclarityEnviron) Create(params environs.CreateParams) error {
@@ -170,6 +178,6 @@ func (xclarityEnviron) Ports() ([]network.PortRange, error) {
 //  - 
 //********************************************
 
-func (e xclarityEnviron) Config() *config.Config {
-	return &e.config
+func (env xclarityEnviron) Config() *config.Config {
+	return &env.config
 }
