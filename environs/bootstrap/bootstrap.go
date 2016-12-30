@@ -335,12 +335,11 @@ func Bootstrap(ctx environs.BootstrapContext, environ environs.Environ, args Boo
 	}); err != nil {
 		return err
 	}
-
 	if err = environ.SetConfig(cfg); err != nil {
 		return err
-	}	
-	ctx.Verbosef("Starting new instance for initial controller")
+	}
 
+	ctx.Verbosef("Starting new instance for initial controller")
 	result, err := environ.Bootstrap(ctx, environs.BootstrapParams{
 		CloudName:            args.CloudName,
 		CloudRegion:          args.CloudRegion,
@@ -613,7 +612,10 @@ func setBootstrapToolsVersion(environ environs.Environ, toolsVersion version.Num
 			"agent-version": toolsVersion.String(),
 		})
 		if err == nil {
+			// logger.Debugf("setBootstrapToolsVersion")
+			// logger.Debugf("feng", cfg)
 			err = environ.SetConfig(cfg)
+			// logger.Debugf("feng", environ.Config())
 		}
 		if err != nil {
 			return errors.Errorf("failed to update model configuration: %v", err)

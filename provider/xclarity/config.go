@@ -25,19 +25,13 @@ type environConfig struct {
 //  CRUD, etc.
 //********************************************
 
-// Borrowed from provider/maas.go
 // PrepareConfig is specified in the EnvironProvider interface.
-func (p xclarityProvider) PrepareConfig(args environs.PrepareConfigParams) (*config.Config, error) {
+func (xclarityProvider) PrepareConfig(args environs.PrepareConfigParams) (*config.Config, error) {
 	if err := validateCloudSpec(args.Cloud); err != nil {
 		return nil, errors.Trace(err)
 	}
-	envConfig, err := validateConfig(args.Config, nil)
-	if err != nil {
-		return nil, err
-	}
 
-	//return args.Config.Apply(environConfig.attrs)
-	return envConfig.Config, nil
+	return args.Config, nil
 }
 
 // Borrowed from maas/provider.go
@@ -51,12 +45,12 @@ func validateCloudSpec(spec environs.CloudSpec) error {
 	return nil
 }
 
+
 var configFields = schema.Fields{}
-
 var configDefaultFields = schema.Defaults{}
-
 var configImmutableFields = []string{}
 
+// This function will validate configuration values and populate defaults if necessary.
 func validateConfig(cfg *config.Config, old *environConfig) (*environConfig, error) {
 	// Check sanity of juju-level fields.
 	var oldCfg *config.Config

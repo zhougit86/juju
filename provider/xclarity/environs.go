@@ -26,13 +26,15 @@ type xclarityEnviron struct {
 	host      string
 }
 
+var _ environs.Environ = (*xclarityEnviron)(nil)
+
 //********************************************
 //
 //	Environ interface
 //  - Provider
 //
 //********************************************
-func (xclarityEnviron) Provider() environs.EnvironProvider {
+func (*xclarityEnviron) Provider() environs.EnvironProvider {
 	return providerInstance
 }
 
@@ -44,7 +46,7 @@ func (xclarityEnviron) Provider() environs.EnvironProvider {
 //  This interface returns a list of instances
 //  based on instance ids.
 //********************************************
-func (e xclarityEnviron) Instances(ids []instance.Id) (instances []instance.Instance, err error) {
+func (e *xclarityEnviron) Instances(ids []instance.Id) (instances []instance.Instance, err error) {
 	instances = make([]instance.Instance, len(ids))
 	var found bool
 	for i, id := range ids {
@@ -74,12 +76,12 @@ func (e xclarityEnviron) Instances(ids []instance.Id) (instances []instance.Inst
 //  the bootstrap process by transferring the tools and installing the
 //  initial Juju controller.
 //********************************************
-func (xclarityEnviron) PrepareForBootstrap(ctx environs.BootstrapContext) error {
+func (*xclarityEnviron) PrepareForBootstrap(ctx environs.BootstrapContext) error {
 	// If nothing, return nil
 	return nil
 }
 
-func (env xclarityEnviron) Bootstrap(
+func (env *xclarityEnviron) Bootstrap(
 	ctx environs.BootstrapContext, 
 	params environs.BootstrapParams,
 ) (*environs.BootstrapResult, error) {
@@ -90,27 +92,21 @@ func (env xclarityEnviron) Bootstrap(
 	// 	Finalize: nil,
 	// }
 
-	if _, ok := env.ecfg.Config.AgentVersion(); ok {
-	    //do something here
-	    logger.Infof("xclarity env Bootstrap, agent-version is here")
-	} else {
-		logger.Infof("xclarity env Bootstrap, agent-version is missing")
-	}
 	return common.Bootstrap(ctx, env, params)
 	// return &result, nil
 }
 
-func (xclarityEnviron) BootstrapMessage() string {
+func (*xclarityEnviron) BootstrapMessage() string {
 	return "xClarity bootstraped! hello world."	
 }
 
-func (xclarityEnviron) Create(params environs.CreateParams) error {
+func (*xclarityEnviron) Create(params environs.CreateParams) error {
 	return errors.NotImplementedf("Create: "+params.ControllerUUID)
 }
 
 // Interface function where we define what type of vocabulary of constraints
 // that can be taken by XClarity cloud. For example,
-func (env xclarityEnviron) ConstraintsValidator() (constraints.Validator, error) {
+func (env *xclarityEnviron) ConstraintsValidator() (constraints.Validator, error) {
 	validator := constraints.NewValidator()
 
 	// Register unsupported constraints
@@ -127,7 +123,7 @@ func (env xclarityEnviron) ConstraintsValidator() (constraints.Validator, error)
 	return validator, nil
 }
 
-func (env xclarityEnviron) SetConfig(cfg *config.Config) error {		
+func (env *xclarityEnviron) SetConfig(cfg *config.Config) error {		
 	env.mu.Lock()
 	defer env.mu.Unlock()
 
@@ -151,19 +147,19 @@ func (env xclarityEnviron) SetConfig(cfg *config.Config) error {
 	return nil
 }
 
-func (xclarityEnviron) ControllerInstances(controllerUUID string) ([]instance.Id, error) {
+func (*xclarityEnviron) ControllerInstances(controllerUUID string) ([]instance.Id, error) {
 	return nil, errors.NotImplementedf("ControllerInstances")
 }
 
-func (xclarityEnviron) Destroy() error {
+func (*xclarityEnviron) Destroy() error {
 	return errors.NotImplementedf("Destroy")
 }
 
-func (env xclarityEnviron) DestroyController(controllerUUID string) error {
+func (env *xclarityEnviron) DestroyController(controllerUUID string) error {
 	return common.Destroy(env)
 }
 
-func (xclarityEnviron) PrecheckInstance(series string, cons constraints.Value, placement string) error {
+func (*xclarityEnviron) PrecheckInstance(series string, cons constraints.Value, placement string) error {
 	return errors.NotImplementedf("PrecheckInstance")
 }
 
@@ -177,18 +173,18 @@ var errNoFwGlobal = errors.New("global firewall mode is not supported")
 
 // OpenPorts is specified in the Environ interface. However, Azure does not
 // support the global firewall mode.
-func (xclarityEnviron) OpenPorts(ports []network.PortRange) error {
+func (*xclarityEnviron) OpenPorts(ports []network.PortRange) error {
 	return errNoFwGlobal
 }
 
 // ClosePorts is specified in the Environ interface. However, Azure does not
 // support the global firewall mode.
-func (xclarityEnviron) ClosePorts(ports []network.PortRange) error {
+func (*xclarityEnviron) ClosePorts(ports []network.PortRange) error {
 	return errNoFwGlobal
 }
 
 // Ports is specified in the Environ interface.
-func (xclarityEnviron) Ports() ([]network.PortRange, error) {
+func (*xclarityEnviron) Ports() ([]network.PortRange, error) {
 	return nil, errNoFwGlobal
 }
 
@@ -198,9 +194,7 @@ func (xclarityEnviron) Ports() ([]network.PortRange, error) {
 //  - 
 //********************************************
 
-func (env xclarityEnviron) Config() *config.Config {
-	env.mu.Lock()
-	defer env.mu.Unlock()	
+func (env *xclarityEnviron) Config() *config.Config {	
 	return env.ecfg.Config
 }
 

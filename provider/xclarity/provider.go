@@ -21,6 +21,7 @@ type xclarityProvider struct {
 	environCredentials
 	environConfig
 }
+var _ environs.EnvironProvider = (*xclarityProvider)(nil)
 
 //********************************************
 //
@@ -30,8 +31,6 @@ type xclarityProvider struct {
 //********************************************
 
 func (p xclarityProvider) Validate(cfg, oldCfg *config.Config) (*config.Config, error) {
-	logger.Infof("+++++++++++++++ 1 +++++++++++++++++++++")
-
 	// Validate base configuration change before validating XClarity specifics.
 	err := config.Validate(cfg, oldCfg)
 	if err != nil {
@@ -51,26 +50,17 @@ func (p xclarityProvider) Validate(cfg, oldCfg *config.Config) (*config.Config, 
 //  with a particular cloud, eg. ec2.
 //********************************************
 func (xclarityProvider) Open(params environs.OpenParams) (environs.Environ, error) {
-	env := xclarityEnviron{
+	// Initialize an environ
+	env := &xclarityEnviron{
 		name: params.Config.Name(), 
 		uuid: params.Config.UUID(), 
 		cloudSpec: params.Cloud,
 	}
 
 	// Set environConfig
-	environConfig, err := validateConfig(params.Config, nil)
-	if err != nil {
-		logger.Errorf("xclarity.provider.Open", err)
+	if err := env.SetConfig(params.Config); err != nil {
 		return nil, err
 	}
-
-	// Set the environment value
-	env.ecfg = environConfig
-
-	// TODO: why cannt I use env.SetConfig!? Don't understand.
-	// if err := env.SetConfig(params.Config); err != nil {
-	// 	return nil, err
-	// }
 
 	// Environment is complete
 	return env, nil	
