@@ -29,18 +29,16 @@ type xclarityProvider struct {
 //
 //********************************************
 
-func (xclarityProvider) Validate(cfg, oldCfg *config.Config) (*config.Config, error) {
+func (p xclarityProvider) Validate(cfg, oldCfg *config.Config) (*config.Config, error) {
+	logger.Infof("+++++++++++++++ 1 +++++++++++++++++++++")
+
 	// Validate base configuration change before validating XClarity specifics.
 	err := config.Validate(cfg, oldCfg)
 	if err != nil {
 		return nil, err
 	}
 
-	envCfg := &environConfig{
-		Config: cfg,
-		attrs: cfg.UnknownAttrs(),
-	}
-	return cfg.Apply(envCfg.attrs)
+	return cfg, nil
 }
 
 //********************************************
@@ -53,11 +51,27 @@ func (xclarityProvider) Validate(cfg, oldCfg *config.Config) (*config.Config, er
 //  with a particular cloud, eg. ec2.
 //********************************************
 func (xclarityProvider) Open(params environs.OpenParams) (environs.Environ, error) {
-	env := &xclarityEnviron{
+	env := xclarityEnviron{
 		name: params.Config.Name(), 
 		uuid: params.Config.UUID(), 
-		config: *params.Config,
 		cloudSpec: params.Cloud,
 	}
-	return *env, nil	
+
+	// Set environConfig
+	environConfig, err := validateConfig(params.Config, nil)
+	if err != nil {
+		logger.Errorf("xclarity.provider.Open", err)
+		return nil, err
+	}
+
+	// Set the environment value
+	env.ecfg = environConfig
+
+	// TODO: why cannt I use env.SetConfig!? Don't understand.
+	// if err := env.SetConfig(params.Config); err != nil {
+	// 	return nil, err
+	// }
+
+	// Environment is complete
+	return env, nil	
 }

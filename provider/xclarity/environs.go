@@ -2,6 +2,9 @@ package xclarity
 
 import (
 	"sync"
+	"fmt"
+	"runtime"
+
 	"github.com/juju/errors"
 	"github.com/juju/juju/environs"
 	"github.com/juju/juju/environs/config"
@@ -9,7 +12,7 @@ import (
 	"github.com/juju/juju/network"
 	"github.com/juju/juju/provider/common"
 	"github.com/juju/juju/instance"
-	// "github.com/juju/utils/arch"
+	"github.com/juju/utils/arch"
 )
 
 // Environ is specific to each provider. 
@@ -18,7 +21,7 @@ type xclarityEnviron struct {
 	mu        sync.Mutex
 	name      string
 	uuid      string
-	config    config.Config
+	ecfg      *environConfig
 	cloudSpec environs.CloudSpec	
 	host      string
 }
@@ -72,8 +75,6 @@ func (e xclarityEnviron) Instances(ids []instance.Id) (instances []instance.Inst
 //  initial Juju controller.
 //********************************************
 func (xclarityEnviron) PrepareForBootstrap(ctx environs.BootstrapContext) error {
-	logger.Debugf("xclarity PrepareForBootstrap")
-
 	// If nothing, return nil
 	return nil
 }
@@ -88,6 +89,13 @@ func (env xclarityEnviron) Bootstrap(
 	// 	Series: "boostraped series",
 	// 	Finalize: nil,
 	// }
+
+	if _, ok := env.ecfg.Config.AgentVersion(); ok {
+	    //do something here
+	    logger.Infof("xclarity env Bootstrap, agent-version is here")
+	} else {
+		logger.Infof("xclarity env Bootstrap, agent-version is missing")
+	}
 	return common.Bootstrap(ctx, env, params)
 	// return &result, nil
 }
@@ -100,34 +108,46 @@ func (xclarityEnviron) Create(params environs.CreateParams) error {
 	return errors.NotImplementedf("Create: "+params.ControllerUUID)
 }
 
-// Borrowed from cloudsigma/environcaps.go
-var unsupportedConstraints = []string{
-	constraints.Container,
-	constraints.InstanceType,
-	constraints.Tags,
-	constraints.VirtType,
-}
-
-func (xclarityEnviron) ConstraintsValidator() (constraints.Validator, error) {
+// Interface function where we define what type of vocabulary of constraints
+// that can be taken by XClarity cloud. For example,
+func (env xclarityEnviron) ConstraintsValidator() (constraints.Validator, error) {
 	validator := constraints.NewValidator()
-	validator.RegisterUnsupported(unsupportedConstraints)
+
+	// Register unsupported constraints
+	validator.RegisterUnsupported([]string{
+		constraints.Container, // do not support container, yet
+		constraints.InstanceType, // do not support instance type
+		constraints.Tags, // do not support tagging
+		constraints.VirtType, // do not support multi-hypervisor
+	})
+
+	// Register constraints that XClarity cloud can support
+	validator.RegisterVocabulary(constraints.Arch, []string{arch.AMD64})
+
 	return validator, nil
 }
 
-func (env xclarityEnviron) SetConfig(cfg *config.Config) error {
+func (env xclarityEnviron) SetConfig(cfg *config.Config) error {		
 	env.mu.Lock()
 	defer env.mu.Unlock()
 
-	var old config.Config
-	if &env.config != nil {
-		old = env.config
+	// Save old if any
+	var old *environConfig
+	if env.ecfg != nil {
+		old = env.ecfg
 	}
-	ecfg, err := providerInstance.Validate(cfg, &old)
-	if err != nil {
-		return err
-	}
-	env.config = *ecfg
 
+	// Validate and populate with defaults
+	// so the returned configs are valid for consumption
+	environConfig, err := validateConfig(cfg, old)
+	if err != nil {
+		return errors.Trace(err)
+	}
+
+	// Set the environment value
+	env.ecfg = environConfig
+
+	// Done
 	return nil
 }
 
@@ -179,5 +199,22 @@ func (xclarityEnviron) Ports() ([]network.PortRange, error) {
 //********************************************
 
 func (env xclarityEnviron) Config() *config.Config {
-	return &env.config
+	env.mu.Lock()
+	defer env.mu.Unlock()	
+	return env.ecfg.Config
+}
+
+func mytrace() {
+    pc := make([]uintptr, 10)  // at least 1 entry needed
+    runtime.Callers(2, pc)
+    f := runtime.FuncForPC(pc[0])
+    file, line := f.FileLine(pc[0])
+    fmt.Printf("%s:%d %s\n", file, line, f.Name())
+}
+
+func mycaller() {
+    _, file, no, ok := runtime.Caller(1)
+    if ok {
+        fmt.Printf("called from %s#%d\n", file, no)
+    }	
 }

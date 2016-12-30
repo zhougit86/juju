@@ -8,7 +8,15 @@ import (
 	"reflect"
 
 	"github.com/juju/utils/set"
+
+	//+ feng
+	"github.com/juju/loggo"
+	//- feng
 )
+
+//+ feng
+var logger = loggo.GetLogger("juju.constraints.validation")
+//- feng
 
 // Validator defines operations on constraints attributes which are
 // used to ensure a constraints value is valid, as well as being able

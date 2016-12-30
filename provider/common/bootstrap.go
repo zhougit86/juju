@@ -186,7 +186,6 @@ func BootstrapInstance(ctx environs.BootstrapContext, env environs.Environ, args
 		padding := make([]string, 40-len(msg))
 		msg += strings.Join(padding, " ")
 	}
-	fmt.Fprintf(ctx.GetStderr(), "-feng end\n")	
 	fmt.Fprintln(ctx.GetStderr(), msg)
 
 	finalize := func(ctx environs.BootstrapContext, icfg *instancecfg.InstanceConfig, opts environs.BootstrapDialOpts) error {

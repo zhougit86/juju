@@ -335,10 +335,10 @@ func Bootstrap(ctx environs.BootstrapContext, environ environs.Environ, args Boo
 	}); err != nil {
 		return err
 	}
+
 	if err = environ.SetConfig(cfg); err != nil {
 		return err
-	}
-
+	}	
 	ctx.Verbosef("Starting new instance for initial controller")
 
 	result, err := environ.Bootstrap(ctx, environs.BootstrapParams{
@@ -396,6 +396,7 @@ func Bootstrap(ctx environs.BootstrapContext, environ environs.Environ, args Boo
 	// Make sure we have the most recent environ config as the specified
 	// tools version has been updated there.
 	cfg = environ.Config()
+
 	if err := finalizeInstanceBootstrapConfig(ctx, instanceConfig, args, cfg, customImageMetadata); err != nil {
 		return errors.Annotate(err, "finalizing bootstrap instance config")
 	}
@@ -446,6 +447,7 @@ func finalizeInstanceBootstrapConfig(
 		PrivateKey:   string(key),
 		CAPrivateKey: args.CAPrivateKey,
 	}
+
 	if _, ok := cfg.AgentVersion(); !ok {
 		return errors.New("controller model configuration has no agent-version")
 	}

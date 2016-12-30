@@ -6,6 +6,7 @@ import (
 	"github.com/juju/juju/instance"
 	"github.com/juju/juju/network"
 	"github.com/juju/juju/storage"
+	"github.com/juju/utils/arch"
 )
 
 //********************************************
@@ -28,14 +29,25 @@ func (env xclarityEnviron) AllInstances() ([]instance.Instance, error) {
 func (env xclarityEnviron) StartInstance(args environs.StartInstanceParams) (*environs.StartInstanceResult, error) {
 	// TODO: start an instance through XClarity, and acquire responses that can populate the following struct
 	// for juju to register and manage this intance.
-	hardware := instance.HardwareCharacteristics{}
+	//
+	// For now, we are imitating a successful instance by directly returning a result struct
+	var tmpArch string = arch.AMD64
+	var tmpMem uint64 = 2000000
+	var tmpCpuCore uint64 = 1
+	var tmpCpuPower uint64 = 100
+	hardware := instance.HardwareCharacteristics{
+		Arch: &tmpArch,
+		Mem: &tmpMem,
+		CpuCores: &tmpCpuCore,
+		CpuPower: &tmpCpuPower,
+	}
     volumes := make([]storage.Volume, 0)
 	networkInfo := make([]network.InterfaceInfo, 0)
 	volumeAttachments := make([]storage.VolumeAttachment, 0)
 
 	return &environs.StartInstanceResult{
 		Instance:          xclarityBootstrapInstance{},
-		Config:			   &env.config,
+		Config:			   env.ecfg.Config,
 		Hardware:          &hardware, // type instance.HardwareCharacteristics struct
 		NetworkInfo:       networkInfo, // type network.InterfaceInfo struct
 		Volumes:           volumes, // type storage.Volume struct
