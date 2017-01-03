@@ -36,7 +36,7 @@ func (p xclarityProvider) Validate(cfg, oldCfg *config.Config) (*config.Config, 
 	if err != nil {
 		return nil, err
 	}
-
+	logger.Debugf("feng", cfg.UUID())
 	return cfg, nil
 }
 

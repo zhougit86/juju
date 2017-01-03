@@ -262,7 +262,7 @@ var FinishBootstrap = func(
 	return ConfigureMachine(ctx, client, addr, instanceConfig)
 }
 
-func GetCheckNonceCommand(instanceConfig *instancecfg.InstanceConfig) string {
+func GetCheckNonceCommand(instanceConfig *instancecfg.InstanceConfig) string {	
 	// Each attempt to connect to an address must verify the machine is the
 	// bootstrap machine by checking its nonce file exists and contains the
 	// nonce in the InstanceConfig. This also blocks sshinit from proceeding

@@ -34,8 +34,12 @@ func (xclarityBootstrapInstance) Refresh() error {
 }
 
 func (inst xclarityBootstrapInstance) Addresses() (addresses []network.Address, err error) {
-	// Not implemented
-	return nil, errors.NotImplementedf("Addresses")
+	// HOOK: this is where xclarity needs to tell me the address of bootstraped machine 0
+
+	// For now, we are giving it a known IP that can function as machine 0.
+	newAddress := network.NewAddress("192.168.8.24")
+	aaah := []network.Address{newAddress}
+	return aaah, nil
 }
 
 func (xclarityBootstrapInstance) OpenPorts(machineId string, ports []network.PortRange) error {

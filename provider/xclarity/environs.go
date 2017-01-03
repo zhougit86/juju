@@ -123,6 +123,7 @@ func (env *xclarityEnviron) ConstraintsValidator() (constraints.Validator, error
 	return validator, nil
 }
 
+// Interface function used to initialize/update environConfig.
 func (env *xclarityEnviron) SetConfig(cfg *config.Config) error {		
 	env.mu.Lock()
 	defer env.mu.Unlock()
@@ -193,8 +194,8 @@ func (*xclarityEnviron) Ports() ([]network.PortRange, error) {
 //	Environ/ConfigGetter interface
 //  - 
 //********************************************
-
-func (env *xclarityEnviron) Config() *config.Config {	
+func (env *xclarityEnviron) Config() *config.Config {
+	// For read, do not need lock protection.
 	return env.ecfg.Config
 }
 

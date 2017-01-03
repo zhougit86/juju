@@ -26,6 +26,8 @@ type environConfig struct {
 //********************************************
 
 // PrepareConfig is specified in the EnvironProvider interface.
+// This is the first time during bootstrap that we will be touching configs. 
+// Simply passed it on if cloud spec is valid. 
 func (xclarityProvider) PrepareConfig(args environs.PrepareConfigParams) (*config.Config, error) {
 	if err := validateCloudSpec(args.Cloud); err != nil {
 		return nil, errors.Trace(err)
