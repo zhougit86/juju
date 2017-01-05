@@ -19,7 +19,6 @@ import (
 
 type xclarityProvider struct {
 	environCredentials
-	environConfig
 }
 var _ environs.EnvironProvider = (*xclarityProvider)(nil)
 
@@ -36,7 +35,6 @@ func (p xclarityProvider) Validate(cfg, oldCfg *config.Config) (*config.Config, 
 	if err != nil {
 		return nil, err
 	}
-	logger.Debugf("feng", cfg.UUID())
 	return cfg, nil
 }
 
@@ -49,7 +47,9 @@ func (p xclarityProvider) Validate(cfg, oldCfg *config.Config) (*config.Config, 
 //  which captures things needed to communicate
 //  with a particular cloud, eg. ec2.
 //********************************************
-func (xclarityProvider) Open(params environs.OpenParams) (environs.Environ, error) {
+func (p xclarityProvider) Open(params environs.OpenParams) (environs.Environ, error) {
+	logger.Infof("opening model %q", params.Config.Name())
+
 	// Initialize an environ
 	env := &xclarityEnviron{
 		name: params.Config.Name(), 

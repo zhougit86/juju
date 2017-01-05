@@ -612,10 +612,7 @@ func setBootstrapToolsVersion(environ environs.Environ, toolsVersion version.Num
 			"agent-version": toolsVersion.String(),
 		})
 		if err == nil {
-			// logger.Debugf("setBootstrapToolsVersion")
-			// logger.Debugf("feng", cfg)
 			err = environ.SetConfig(cfg)
-			// logger.Debugf("feng", environ.Config())
 		}
 		if err != nil {
 			return errors.Errorf("failed to update model configuration: %v", err)

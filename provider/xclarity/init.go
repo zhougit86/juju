@@ -14,6 +14,7 @@ const (
 	providerType = "xclarity"
 )
 
+// This is a top-level entry point used by juju's CLI
 var providerInstance = xclarityProvider{}
 
 func init() {

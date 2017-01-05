@@ -99,7 +99,7 @@ func (c *BootstrapCommand) Init(args []string) error {
 }
 
 // Run initializes state for an environment.
-func (c *BootstrapCommand) Run(_ *cmd.Context) error {
+func (c *BootstrapCommand) Run(_ *cmd.Context) error {	
 	bootstrapParamsData, err := ioutil.ReadFile(c.BootstrapParamsFile)
 	if err != nil {
 		return errors.Annotate(err, "reading bootstrap params file")
@@ -136,6 +136,7 @@ func (c *BootstrapCommand) Run(_ *cmd.Context) error {
 	if err != nil {
 		return errors.Trace(err)
 	}
+	
 	env, err := environs.New(environs.OpenParams{
 		Cloud:  cloudSpec,
 		Config: args.ControllerModelConfig,

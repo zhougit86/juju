@@ -19,7 +19,12 @@ import (
 // The presence and format of this constant is very important.
 // The debian/rules build recipe uses this value for the version
 // number of the release package.
-const version = "2.0.1"
+
+//+ feng
+// Change this version so juju bootstrap will force to use
+// local jujud as tool. Otherwise, it will fetch from streams.ubuntu.com
+const version = "2.0.1.97"
+//- feng
 
 // The version that we switched over from old style numbering to new style.
 var switchOverVersion = semversion.MustParse("1.19.9")

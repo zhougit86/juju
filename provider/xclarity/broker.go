@@ -27,7 +27,7 @@ func (env xclarityEnviron) AllInstances() ([]instance.Instance, error) {
 // For XClarity, I'm assuming that a REST post with parameters, constraints will be sent
 // to XClarity, and response with information that to populate StartInstanceResult.
 func (env xclarityEnviron) StartInstance(args environs.StartInstanceParams) (*environs.StartInstanceResult, error) {
-	// TODO: start an instance through XClarity, and acquire responses that can populate the following struct
+	// HOOK: start an instance through XClarity, and acquire responses that can populate the following struct
 	// for juju to register and manage this intance.
 	//
 	// For now, we are imitating a successful instance by directly returning a result struct

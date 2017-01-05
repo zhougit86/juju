@@ -72,6 +72,7 @@ func (r *globalProviderRegistry) Provider(providerType string) (EnvironProvider,
 	if alias, ok := r.aliases[providerType]; ok {
 		providerType = alias
 	}
+
 	p, ok := r.providers[providerType]
 	if !ok {
 		return nil, errors.NewNotFound(

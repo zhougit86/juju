@@ -92,6 +92,7 @@ func (env *xclarityEnviron) Bootstrap(
 	// 	Finalize: nil,
 	// }
 
+	logger.Debugf("feng", env)
 	return common.Bootstrap(ctx, env, params)
 	// return &result, nil
 }
@@ -101,7 +102,8 @@ func (*xclarityEnviron) BootstrapMessage() string {
 }
 
 func (*xclarityEnviron) Create(params environs.CreateParams) error {
-	return errors.NotImplementedf("Create: "+params.ControllerUUID)
+	// lxd, cloudsigma provider
+	return nil
 }
 
 // Interface function where we define what type of vocabulary of constraints

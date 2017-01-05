@@ -10,7 +10,7 @@ import (
 const (
 	// BootstrapInstanceId is the instance ID used
 	// for the manual provider's bootstrap instance.
-	BootstrapInstanceId instance.Id = "xclarity:"
+	BootstrapInstanceId instance.Id = "xclarity: "
 )
 
 type xclarityBootstrapInstance struct {
@@ -37,7 +37,7 @@ func (inst xclarityBootstrapInstance) Addresses() (addresses []network.Address, 
 	// HOOK: this is where xclarity needs to tell me the address of bootstraped machine 0
 
 	// For now, we are giving it a known IP that can function as machine 0.
-	newAddress := network.NewAddress("192.168.8.24")
+	newAddress := network.NewAddress("192.168.8.34")
 	aaah := []network.Address{newAddress}
 	return aaah, nil
 }
