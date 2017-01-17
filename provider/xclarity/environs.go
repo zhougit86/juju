@@ -91,8 +91,6 @@ func (env *xclarityEnviron) Bootstrap(
 	// 	Series: "boostraped series",
 	// 	Finalize: nil,
 	// }
-
-	logger.Debugf("feng", env)
 	return common.Bootstrap(ctx, env, params)
 	// return &result, nil
 }

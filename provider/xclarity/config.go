@@ -54,6 +54,8 @@ var configImmutableFields = []string{}
 
 // This function will validate configuration values and populate defaults if necessary.
 func validateConfig(cfg *config.Config, old *environConfig) (*environConfig, error) {
+	// HOOK: where configurations are validated by underline cloud.
+
 	// Check sanity of juju-level fields.
 	var oldCfg *config.Config
 	if old != nil {

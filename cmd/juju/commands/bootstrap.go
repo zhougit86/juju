@@ -504,6 +504,8 @@ func (c *bootstrapCommand) Run(ctx *cmd.Context) (resultErr error) {
 		return errors.Trace(err)
 	}
 
+	logger.Debugf("feng", modelDefaultConfigAttrs)
+
 	// The provider may define some custom attributes specific
 	// to the provider. These will be added to the model config.
 	providerAttrs := make(map[string]interface{})

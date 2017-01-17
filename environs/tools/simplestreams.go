@@ -173,6 +173,11 @@ func Fetch(
 			ValueTemplate:   ToolsMetadata{},
 		},
 	}
+
+	//+ feng
+	logger.Debugf("feng tools.simplestreams.Fetch", params)
+	//- feng
+
 	items, resolveInfo, err := simplestreams.GetMetadata(sources, params)
 	if err != nil {
 		return nil, nil, err

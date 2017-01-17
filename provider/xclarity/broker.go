@@ -57,7 +57,7 @@ func (env xclarityEnviron) StartInstance(args environs.StartInstanceParams) (*en
 
 func (xclarityEnviron) StopInstances(...instance.Id) error {
 	// TODO: stop an instance through XClarity.
-	return nil
+	return errors.NotImplementedf("StopInstances")
 }
 
 func (xclarityEnviron) MaintainInstance(args environs.StartInstanceParams) error {
