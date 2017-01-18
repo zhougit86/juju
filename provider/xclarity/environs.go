@@ -1,28 +1,28 @@
 package xclarity
 
 import (
-	"sync"
 	"fmt"
 	"runtime"
+	"sync"
 
 	"github.com/juju/errors"
+	"github.com/juju/juju/constraints"
 	"github.com/juju/juju/environs"
 	"github.com/juju/juju/environs/config"
-	"github.com/juju/juju/constraints"
+	"github.com/juju/juju/instance"
 	"github.com/juju/juju/network"
 	"github.com/juju/juju/provider/common"
-	"github.com/juju/juju/instance"
 	"github.com/juju/utils/arch"
 )
 
-// Environ is specific to each provider. 
+// Environ is specific to each provider.
 // Here we define Environ for Lenovo XClarity.
 type xclarityEnviron struct {
 	mu        sync.Mutex
 	name      string
 	uuid      string
 	ecfg      *environConfig
-	cloudSpec environs.CloudSpec	
+	cloudSpec environs.CloudSpec
 	host      string
 }
 
@@ -82,7 +82,7 @@ func (*xclarityEnviron) PrepareForBootstrap(ctx environs.BootstrapContext) error
 }
 
 func (env *xclarityEnviron) Bootstrap(
-	ctx environs.BootstrapContext, 
+	ctx environs.BootstrapContext,
 	params environs.BootstrapParams,
 ) (*environs.BootstrapResult, error) {
 
@@ -96,7 +96,7 @@ func (env *xclarityEnviron) Bootstrap(
 }
 
 func (*xclarityEnviron) BootstrapMessage() string {
-	return "xClarity bootstraped! hello world."	
+	return "xClarity bootstraped! hello world."
 }
 
 func (*xclarityEnviron) Create(params environs.CreateParams) error {
@@ -111,10 +111,10 @@ func (env *xclarityEnviron) ConstraintsValidator() (constraints.Validator, error
 
 	// Register unsupported constraints
 	validator.RegisterUnsupported([]string{
-		constraints.Container, // do not support container, yet
+		constraints.Container,    // do not support container, yet
 		constraints.InstanceType, // do not support instance type
-		constraints.Tags, // do not support tagging
-		constraints.VirtType, // do not support multi-hypervisor
+		constraints.Tags,         // do not support tagging
+		constraints.VirtType,     // do not support multi-hypervisor
 	})
 
 	// Register constraints that XClarity cloud can support
@@ -124,7 +124,7 @@ func (env *xclarityEnviron) ConstraintsValidator() (constraints.Validator, error
 }
 
 // Interface function used to initialize/update environConfig.
-func (env *xclarityEnviron) SetConfig(cfg *config.Config) error {		
+func (env *xclarityEnviron) SetConfig(cfg *config.Config) error {
 	env.mu.Lock()
 	defer env.mu.Unlock()
 
@@ -161,13 +161,15 @@ func (env *xclarityEnviron) DestroyController(controllerUUID string) error {
 }
 
 func (*xclarityEnviron) PrecheckInstance(series string, cons constraints.Value, placement string) error {
-	return errors.NotImplementedf("PrecheckInstance")
+	// HOOK: This is called in "juju deploy".
+	// Can ask XClarity for verifications.
+	return nil
 }
 
 //********************************************
 //
 //	Environ/Firewaller interface
-//  - 
+//  -
 //********************************************
 
 var errNoFwGlobal = errors.New("global firewall mode is not supported")
@@ -192,7 +194,7 @@ func (*xclarityEnviron) Ports() ([]network.PortRange, error) {
 //********************************************
 //
 //	Environ/ConfigGetter interface
-//  - 
+//  -
 //********************************************
 func (env *xclarityEnviron) Config() *config.Config {
 	// For read, do not need lock protection.
@@ -200,16 +202,16 @@ func (env *xclarityEnviron) Config() *config.Config {
 }
 
 func mytrace() {
-    pc := make([]uintptr, 10)  // at least 1 entry needed
-    runtime.Callers(2, pc)
-    f := runtime.FuncForPC(pc[0])
-    file, line := f.FileLine(pc[0])
-    fmt.Printf("%s:%d %s\n", file, line, f.Name())
+	pc := make([]uintptr, 10) // at least 1 entry needed
+	runtime.Callers(2, pc)
+	f := runtime.FuncForPC(pc[0])
+	file, line := f.FileLine(pc[0])
+	fmt.Printf("%s:%d %s\n", file, line, f.Name())
 }
 
 func mycaller() {
-    _, file, no, ok := runtime.Caller(1)
-    if ok {
-        fmt.Printf("called from %s#%d\n", file, no)
-    }	
+	_, file, no, ok := runtime.Caller(1)
+	if ok {
+		fmt.Printf("called from %s#%d\n", file, no)
+	}
 }

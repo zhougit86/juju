@@ -3,8 +3,8 @@ package xclarity
 import (
 	"github.com/juju/errors"
 	"github.com/juju/juju/instance"
-	"github.com/juju/juju/status"
 	"github.com/juju/juju/network"
+	"github.com/juju/juju/status"
 )
 
 const (
@@ -37,7 +37,7 @@ func (inst xclarityBootstrapInstance) Addresses() (addresses []network.Address, 
 	// HOOK: this is where xclarity needs to tell me the address of bootstraped machine 0
 
 	// For now, we are giving it a known IP that can function as machine 0.
-	newAddress := network.NewAddress("192.168.8.36")
+	newAddress := network.NewAddress("192.168.8.234")
 	aaah := []network.Address{newAddress}
 	return aaah, nil
 }

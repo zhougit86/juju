@@ -167,8 +167,6 @@ func (p BootstrapParams) Validate() error {
 // used to provision the instance, and are also set within the bootstrapped
 // environment.
 func Bootstrap(ctx environs.BootstrapContext, environ environs.Environ, args BootstrapParams) error {
-	logger.Debugf("feng", args)
-
 	//+ feng
 	// Set image metadata
 	//- feng
@@ -270,8 +268,6 @@ func Bootstrap(ctx environs.BootstrapContext, environ environs.Environ, args Boo
 		return errors.Trace(err)
 	}
 
-	logger.Debugf("feng", bootstrapConstraints)
-
 	// The arch we use to find tools isn't the boostrapConstraints arch.
 	// We copy the constraints arch to a separate variable and
 	// update it from the host arch if not specified.
@@ -339,8 +335,6 @@ func Bootstrap(ctx environs.BootstrapContext, environ environs.Environ, args Boo
 		return errors.New(noToolsMessage)
 	}
 
-	logger.Debugf("feng", availableTools)
-
 	// If we're uploading, we must override agent-version;
 	// if we're not uploading, we want to ensure we have an
 	// agent-version set anyway, to appease FinishInstanceConfig.
@@ -382,7 +376,6 @@ func Bootstrap(ctx environs.BootstrapContext, environ environs.Environ, args Boo
 	if err != nil {
 		return err
 	}
-	logger.Debugf("feng", matchingTools)
 
 	selectedToolsList, err := getBootstrapToolsVersion(matchingTools)
 	if err != nil {
@@ -395,8 +388,6 @@ func Bootstrap(ctx environs.BootstrapContext, environ environs.Environ, args Boo
 	if err := setBootstrapToolsVersion(environ, newestVersion); err != nil {
 		return err
 	}
-
-	logger.Debugf("feng", selectedToolsList)
 
 	logger.Infof("Installing Juju agent on bootstrap instance")
 	publicKey, err := userPublicSigningKey()
@@ -424,8 +415,6 @@ func Bootstrap(ctx environs.BootstrapContext, environ environs.Environ, args Boo
 		return errors.Annotate(err, "finalizing bootstrap instance config")
 	}
 
-	logger.Debugf("feng", instanceConfig)
-	logger.Debugf("feng", args.DialOpts)
 	if err := result.Finalize(ctx, instanceConfig, args.DialOpts); err != nil {
 		return err
 	}
