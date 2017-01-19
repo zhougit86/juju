@@ -47,6 +47,9 @@ func (*xclarityEnviron) Provider() environs.EnvironProvider {
 //  based on instance ids.
 //********************************************
 func (e *xclarityEnviron) Instances(ids []instance.Id) (instances []instance.Instance, err error) {
+
+	logger.Infof("+++++++++++++++++ xclarity.Instances +++++++++++++++++")
+
 	instances = make([]instance.Instance, len(ids))
 	var found bool
 	for i, id := range ids {
@@ -161,7 +164,7 @@ func (env *xclarityEnviron) DestroyController(controllerUUID string) error {
 }
 
 func (*xclarityEnviron) PrecheckInstance(series string, cons constraints.Value, placement string) error {
-	// HOOK: This is called in "juju deploy".
+	// HOOK: This is the first thing called in "juju deploy".
 	// Can ask XClarity for verifications.
 	return nil
 }
