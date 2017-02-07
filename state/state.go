@@ -977,6 +977,12 @@ type AddApplicationArgs struct {
 // supplied name (which must be unique). If the charm defines peer relations,
 // they will be created automatically.
 func (st *State) AddApplication(args AddApplicationArgs) (_ *Application, err error) {
+	//+ feng
+	// This is the place where deploy command will end up. Only State
+	// has implemented this interface.
+	logger.Debugf("feng Deploy 3", args)
+	//- feng
+
 	defer errors.DeferredAnnotatef(&err, "cannot add application %q", args.Name)
 	// Sanity checks.
 	if !names.IsValidApplication(args.Name) {
@@ -1188,6 +1194,9 @@ func (st *State) AddApplication(args AddApplicationArgs) (_ *Application, err er
 	// At the last moment before inserting the service, prime status history.
 	probablyUpdateStatusHistory(st, svc.globalKey(), statusDoc)
 
+	//+ feng
+	logger.Debugf("feng Deploy DB ops in state.AddApplication", ops)
+	//- feng
 	if err := st.runTransaction(ops); err == txn.ErrAborted {
 		if err := checkModelActive(st); err != nil {
 			return nil, errors.Trace(err)

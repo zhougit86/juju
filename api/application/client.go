@@ -102,6 +102,7 @@ type DeployArgs struct {
 // it. Placement directives, if provided, specify the machine on which the charm
 // is deployed.
 func (c *Client) Deploy(args DeployArgs) error {
+
 	deployArgs := params.ApplicationsDeploy{
 		Applications: []params.ApplicationDeploy{{
 			ApplicationName:  args.ApplicationName,
@@ -119,6 +120,11 @@ func (c *Client) Deploy(args DeployArgs) error {
 	}
 	var results params.ErrorResults
 	var err error
+
+	//+ feng
+	logger.Debugf("feng Deploy 1", deployArgs)
+	//- feng
+
 	err = c.facade.FacadeCall("Deploy", deployArgs, &results)
 	if err != nil {
 		return errors.Trace(err)

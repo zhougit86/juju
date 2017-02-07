@@ -24,6 +24,7 @@ import (
 // Change this version so juju bootstrap will force to use
 // local jujud as tool. Otherwise, it will fetch from streams.ubuntu.com
 const version = "2.0.1.97"
+
 //- feng
 
 // The version that we switched over from old style numbering to new style.

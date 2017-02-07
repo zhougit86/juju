@@ -32,6 +32,8 @@ type DummyREST struct {
 
 func TryRESTTest(id string) (*DummyREST, error) {
 
+	logger.Debugf("feng TryRESTTest")
+
 	url := fmt.Sprintf("http://192.168.5.11:8000/api/v1/person/%s/?format=json&charset=utf8", id)
 
 	// Build the request
@@ -70,10 +72,8 @@ func TryRESTTest(id string) (*DummyREST, error) {
 		return nil, err
 	}
 
-	logger.Infof("+++++++++++++++++++++ feng ++++++++++++++++")
 	logger.Infof("Birthday = ", record.Birthday)
 	logger.Infof("Name   = ", record.Name)
-	logger.Infof("--------------------- feng ----------------")
 	return &record, nil
 }
 
@@ -90,6 +90,9 @@ func (env xclarityEnviron) StartInstance(args environs.StartInstanceParams) (*en
 	var tmpMem uint64 = 2000000
 	var tmpCpuCore uint64 = 1
 	var tmpCpuPower uint64 = 100
+
+	logger.Debugf("feng Deploy 4 devx", args)
+
 	hardware := instance.HardwareCharacteristics{
 		Arch:     &tmpArch,
 		Mem:      &tmpMem,

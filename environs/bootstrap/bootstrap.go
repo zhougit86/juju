@@ -167,9 +167,6 @@ func (p BootstrapParams) Validate() error {
 // used to provision the instance, and are also set within the bootstrapped
 // environment.
 func Bootstrap(ctx environs.BootstrapContext, environ environs.Environ, args BootstrapParams) error {
-	//+ feng
-	// Set image metadata
-	//- feng
 	if err := args.Validate(); err != nil {
 		return errors.Annotate(err, "validating bootstrap parameters")
 	}
@@ -220,11 +217,6 @@ func Bootstrap(ctx environs.BootstrapContext, environ environs.Environ, args Boo
 	}
 
 	ctx.Verbosef("Loading image metadata")
-	logger.Infof("++++++++++++ feng ++++++++++++")
-	logger.Infof("bootstrapSeries:" , bootstrapSeries)
-	logger.Infof("Arch: ", bootstrapArchForImageSearch)
-	logger.Debugf("feng BootstrapImage", args.BootstrapImage)
-	logger.Debugf("feng customImageMetadata", customImageMetadata)
 	imageMetadata, err := bootstrapImageMetadata(environ,
 		bootstrapSeries,
 		bootstrapArchForImageSearch,
@@ -249,12 +241,6 @@ func Bootstrap(ctx environs.BootstrapContext, environ environs.Environ, args Boo
 		}
 	}
 
-	logger.Infof("architectures: ", architectures)
-	logger.Infof("------------ feng ------------")
-
-	//+ feng
-	// constraints
-	//- feng
 	constraintsValidator, err := environ.ConstraintsValidator()
 	if err != nil {
 		return err

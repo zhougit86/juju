@@ -697,6 +697,12 @@ func (task *provisionerTask) startMachine(
 	provisioningInfo *params.ProvisioningInfo,
 	startInstanceParams environs.StartInstanceParams,
 ) error {
+
+	//+ feng
+	// This is where a request meets with provider's specific code -- through Broker
+	logger.Debugf("feng Deploy 4 provisionerTask")
+	//- feng
+
 	var result *environs.StartInstanceResult
 	for attemptsLeft := task.retryStartInstanceStrategy.retryCount; attemptsLeft >= 0; attemptsLeft-- {
 		attemptResult, err := task.broker.StartInstance(startInstanceParams)

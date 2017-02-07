@@ -578,6 +578,11 @@ type hasErrorCode interface {
 // object id, and the specific RPC method. It marshalls the Arguments, and will
 // unmarshall the result into the response object that is supplied.
 func (s *state) APICall(facade string, version int, id, method string, args, response interface{}) error {
+
+	//+ feng
+	logger.Debugf("feng APICall", facade, method, args)
+	//- feng
+
 	retrySpec := retry.CallArgs{
 		Func: func() error {
 			return s.client.Call(rpc.Request{

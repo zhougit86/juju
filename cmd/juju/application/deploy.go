@@ -84,6 +84,7 @@ type DeployAPI interface {
 	// ApplicationClient
 	CharmInfo(string) (*apicharms.CharmInfo, error)
 	Deploy(application.DeployArgs) error
+
 	Status(patterns []string) (*apiparams.FullStatus, error)
 
 	Resolve(*config.Config, *charm.URL) (*charm.URL, params.Channel, []string, error)
@@ -511,6 +512,11 @@ func (c *DeployCommand) deployCharm(
 	ctx *cmd.Context,
 	apiRoot DeployAPI,
 ) (rErr error) {
+
+	//+ feng
+	logger.Debugf("feng deployCharm", id, series)
+	//- feng
+
 	charmInfo, err := apiRoot.CharmInfo(id.URL.String())
 	if err != nil {
 		return err
