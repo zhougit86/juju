@@ -91,6 +91,7 @@ func (c *agentConf) ReadConfig(tag string) error {
 		return err
 	}
 	c._config = conf
+	//logger.Debugf("feng Check what is the config", c)
 	return nil
 }
 

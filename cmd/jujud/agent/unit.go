@@ -128,8 +128,8 @@ func (a *UnitAgent) Run(ctx *cmd.Context) error {
 	if flags := featureflag.String(); flags != "" {
 		logger.Warningf("developer feature flags enabled: %s", flags)
 	}
-
 	a.runner.StartWorker("api", a.APIWorkers)
+	//logger.Debugf("feng Check what is the UnitAgent", a)
 	err := cmdutil.AgentDone(logger, a.runner.Wait())
 	a.tomb.Kill(err)
 	return err
@@ -155,6 +155,7 @@ func (a *UnitAgent) APIWorkers() (worker.Worker, error) {
 	if err != nil {
 		return nil, err
 	}
+	//logger.Debugf("feng Check what is the Engine", engine)
 	if err := dependency.Install(engine, manifolds); err != nil {
 		if err := worker.Stop(engine); err != nil {
 			logger.Errorf("while stopping engine with bad manifolds: %v", err)

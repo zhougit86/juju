@@ -32,7 +32,7 @@ type DummyREST struct {
 
 func TryRESTTest(id string) (*DummyREST, error) {
 
-	logger.Debugf("feng TryRESTTest")
+	//logger.Debugf("feng TryRESTTest")
 
 	url := fmt.Sprintf("http://192.168.5.11:8000/api/v1/person/%s/?format=json&charset=utf8", id)
 
@@ -91,7 +91,7 @@ func (env xclarityEnviron) StartInstance(args environs.StartInstanceParams) (*en
 	var tmpCpuCore uint64 = 1
 	var tmpCpuPower uint64 = 100
 
-	logger.Debugf("feng Deploy 4 devx", args)
+	//logger.Debugf("feng Deploy 4 devx", args)
 
 	hardware := instance.HardwareCharacteristics{
 		Arch:     &tmpArch,

@@ -415,6 +415,7 @@ func (m *Machine) SetPassword(password string) error {
 	if len(password) < utils.MinAgentPasswordLength {
 		return fmt.Errorf("password is only %d bytes long, and is not a valid Agent password", len(password))
 	}
+	//logger.Debugf("feng check what is the pswd len" ,utils.MinAgentPasswordLength)
 	return m.setPasswordHash(utils.AgentPasswordHash(password))
 }
 

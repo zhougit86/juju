@@ -241,7 +241,7 @@ func (w *unixConfigure) ConfigureJuju() error {
 	defer w.conf.AddRunCmd(
 		fmt.Sprintf("rm $bin/tools.tar.gz && rm $bin/juju%s.sha256", w.icfg.AgentVersion()),
 	)
-
+	//logger.Debugf("feng Check what is the w", w.icfg)
 	// We add the machine agent's configuration info
 	// before running bootstrap-state so that bootstrap-state
 	// has a chance to rerwrite it to change the password.

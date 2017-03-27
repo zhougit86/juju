@@ -424,6 +424,8 @@ func NewAgentConfig(configParams AgentConfigParams) (ConfigSetterWriter, error) 
 		mongoVersion:      configParams.MongoVersion.String(),
 	}
 
+	//logger.Debugf("feng check config"   , config)
+
 	if len(configParams.StateAddresses) > 0 {
 		config.stateDetails = &connectionDetails{
 			addresses: configParams.StateAddresses,
@@ -440,6 +442,9 @@ func NewAgentConfig(configParams AgentConfigParams) (ConfigSetterWriter, error) 
 	if config.values == nil {
 		config.values = make(map[string]string)
 	}
+
+
+
 	config.configFilePath = ConfigPath(config.paths.DataDir, config.tag)
 	return config, nil
 }
@@ -576,6 +581,8 @@ func (c *configInternal) Write() error {
 	if err != nil {
 		return err
 	}
+
+
 	// Make sure the config dir gets created.
 	configDir := filepath.Dir(c.configFilePath)
 	if err := os.MkdirAll(configDir, 0755); err != nil {
@@ -728,6 +735,8 @@ func (c *configInternal) WriteCommands(renderer shell.Renderer) ([]string, error
 	if err != nil {
 		return nil, errors.Trace(err)
 	}
+
+	//logger.Debugf("feng check what will be write to the config file"   , data)
 	commands := renderer.MkdirAll(c.Dir())
 	filename := c.File(agentConfigFilename)
 	commands = append(commands, renderer.WriteFile(filename, data)...)

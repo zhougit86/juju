@@ -121,9 +121,7 @@ func (c *Client) Deploy(args DeployArgs) error {
 	var results params.ErrorResults
 	var err error
 
-	//+ feng
-	logger.Debugf("feng Deploy 1", deployArgs)
-	//- feng
+
 
 	err = c.facade.FacadeCall("Deploy", deployArgs, &results)
 	if err != nil {

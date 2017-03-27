@@ -431,6 +431,8 @@ func tagToString(tag names.Tag) string {
 func dialAPI(info *Info, opts DialOpts) (*websocket.Conn, *tls.Config, error) {
 	// Set opts.DialWebsocket here rather than in open because
 	// some tests call dialAPI directly.
+
+	//logger.Debugf("feng check what in the info client send to the server", info)
 	if opts.DialWebsocket == nil {
 		opts.DialWebsocket = websocket.DialConfig
 	}
@@ -464,6 +466,7 @@ func dialAPI(info *Info, opts DialOpts) (*websocket.Conn, *tls.Config, error) {
 		return nil, nil, errors.Trace(err)
 	}
 	logger.Infof("connection established to %q", conn.RemoteAddr())
+	//logger.Debugf("feng check what in the conn ", conn)
 	return conn, tlsConfig, nil
 }
 
@@ -580,7 +583,7 @@ type hasErrorCode interface {
 func (s *state) APICall(facade string, version int, id, method string, args, response interface{}) error {
 
 	//+ feng
-	logger.Debugf("feng APICall", facade, method, args)
+	//logger.Debugf("feng APICall", facade, method, args)
 	//- feng
 
 	retrySpec := retry.CallArgs{

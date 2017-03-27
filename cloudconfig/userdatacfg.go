@@ -16,6 +16,8 @@ import (
 	"github.com/juju/juju/agent"
 	"github.com/juju/juju/cloudconfig/cloudinit"
 	"github.com/juju/juju/cloudconfig/instancecfg"
+
+	//"runtime"
 )
 
 const (
@@ -54,6 +56,12 @@ func NewUserdataConfig(icfg *instancecfg.InstanceConfig, conf cloudinit.CloudCon
 		return nil, err
 	}
 
+	//
+	//buf:=make([]byte,1<<20)
+	//runtime.Stack(buf,true)
+	//
+	//logger.Debugf("feng Check what is the buf ", buf)
+
 	base := baseConfigure{
 		tag:  names.NewMachineTag(icfg.MachineId),
 		icfg: icfg,
@@ -88,6 +96,7 @@ func (c *baseConfigure) addAgentInfo(tag names.Tag) (agent.Config, error) {
 		return nil, errors.Trace(err)
 	}
 	acfg.SetValue(agent.AgentServiceName, c.icfg.MachineAgentServiceName)
+	//logger.Debugf("feng check config"   , acfg)
 	cmds, err := acfg.WriteCommands(c.conf.ShellRenderer())
 	if err != nil {
 		return nil, errors.Annotate(err, "failed to write commands")

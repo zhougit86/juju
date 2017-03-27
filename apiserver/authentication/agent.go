@@ -50,6 +50,7 @@ func (*AgentAuthenticator) Authenticate(entityFinder EntityFinder, tag names.Tag
 	// prevent a controller machine from logging into the hosted
 	// model.
 	if machine, ok := authenticator.(*state.Machine); ok {
+		logger.Debugf("feng check what in the machine,password,tag", machine,req.Credentials,tag)
 		if !machine.CheckProvisioned(req.Nonce) {
 			return nil, errors.NotProvisionedf("machine %v", machine.Id())
 		}

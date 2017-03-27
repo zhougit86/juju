@@ -51,7 +51,7 @@ type UnitAdder interface {
 // DeployApplication takes a charm and various parameters and deploys it.
 func DeployApplication(st ApplicationDeployer, args DeployApplicationParams) (*state.Application, error) {
 	//+ feng
-	logger.Debugf("feng Deploy 2", args)
+	//logger.Debugf("feng Deploy 2", args)
 	//- feng
 
 	settings, err := args.Charm.Config().ValidateSettings(args.ConfigSettings)

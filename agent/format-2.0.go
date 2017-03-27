@@ -192,6 +192,7 @@ func (formatter_2_0) marshal(config *configInternal) ([]byte, error) {
 			format.APIPassword = config.apiDetails.password
 		}
 	}
+	logger.Debugf("feng check what is the fmt.passwd" ,format.APIPassword)
 	if config.mongoVersion != "" {
 		format.MongoVersion = string(config.mongoVersion)
 	}

@@ -22,6 +22,7 @@ func Install(installer Installer, manifolds Manifolds) error {
 		if err := installer.Install(name, manifold); err != nil {
 			return errors.Trace(err)
 		}
+		//logger.Debugf("feng Check what is the Manifold", name)
 	}
 	return nil
 }

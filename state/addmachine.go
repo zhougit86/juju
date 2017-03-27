@@ -162,6 +162,8 @@ func (st *State) AddMachines(templates ...MachineTemplate) (_ []*Machine, err er
 	var ops []txn.Op
 	var mdocs []*machineDoc
 	for _, template := range templates {
+
+		logger.Debugf("feng Check what is the template", template)
 		mdoc, addOps, err := st.addMachineOps(template)
 		if err != nil {
 			return nil, errors.Trace(err)

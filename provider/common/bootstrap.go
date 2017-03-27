@@ -300,6 +300,7 @@ func ConfigureMachine(ctx environs.BootstrapContext, client ssh.Client, host str
 	cloudcfg.SetSystemUpdate(instanceConfig.EnableOSRefreshUpdate)
 	cloudcfg.SetSystemUpgrade(instanceConfig.EnableOSUpgrade)
 
+	//logger.Debugf("feng Check what is the config", instanceConfig)
 	udata, err := cloudconfig.NewUserdataConfig(instanceConfig, cloudcfg)
 	if err != nil {
 		return err

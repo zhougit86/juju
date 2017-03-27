@@ -7,7 +7,7 @@ import (
 	"fmt"
 
 	"github.com/juju/errors"
-	"github.com/juju/utils"
+	//"github.com/juju/utils"
 	"gopkg.in/juju/names.v2"
 
 	"github.com/juju/juju/api"
@@ -75,10 +75,13 @@ type simpleAuth struct {
 }
 
 func (auth *simpleAuth) SetupAuthentication(machine TaggedPasswordChanger) (*mongo.MongoInfo, *api.Info, error) {
-	password, err := utils.RandomPassword()
-	if err != nil {
-		return nil, nil, fmt.Errorf("cannot make password for machine %v: %v", machine, err)
-	}
+	//password, err := utils.RandomPassword()
+
+	password := "123443211234432112344321"
+
+	//if err != nil {
+	//	return nil, nil, fmt.Errorf("cannot make password for machine %v: %v", machine, err)
+	//}
 	if err := machine.SetPassword(password); err != nil {
 		return nil, nil, fmt.Errorf("cannot set API password for machine %v: %v", machine, err)
 	}

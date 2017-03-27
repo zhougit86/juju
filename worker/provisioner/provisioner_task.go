@@ -8,7 +8,7 @@ import (
 	"time"
 
 	"github.com/juju/errors"
-	"github.com/juju/utils"
+	//"github.com/juju/utils"
 	"gopkg.in/juju/names.v2"
 
 	apiprovisioner "github.com/juju/juju/api/provisioner"
@@ -487,6 +487,9 @@ func (task *provisionerTask) constructInstanceConfig(
 ) (*instancecfg.InstanceConfig, error) {
 
 	stateInfo, apiInfo, err := auth.SetupAuthentication(machine)
+
+	//logger.Debugf("feng check what is in the machine and apiInfo" ,apiInfo,machine)
+
 	if err != nil {
 		return nil, errors.Annotate(err, "failed to setup authentication")
 	}
@@ -494,12 +497,12 @@ func (task *provisionerTask) constructInstanceConfig(
 	// Generated a nonce for the new instance, with the format: "machine-#:UUID".
 	// The first part is a badge, specifying the tag of the machine the provisioner
 	// is running on, while the second part is a random UUID.
-	uuid, err := utils.NewUUID()
+	//uuid, err := utils.NewUUID()
 	if err != nil {
 		return nil, errors.Annotate(err, "failed to generate a nonce for machine "+machine.Id())
 	}
 
-	nonce := fmt.Sprintf("%s:%s", task.machineTag, uuid)
+	nonce := fmt.Sprintf("%s:%s", task.machineTag, task.machineTag)
 	instanceConfig, err := instancecfg.NewInstanceConfig(
 		names.NewControllerTag(controller.Config(pInfo.ControllerConfig).ControllerUUID()),
 		machine.Id(),
@@ -700,7 +703,7 @@ func (task *provisionerTask) startMachine(
 
 	//+ feng
 	// This is where a request meets with provider's specific code -- through Broker
-	logger.Debugf("feng Deploy 4 provisionerTask")
+
 	//- feng
 
 	var result *environs.StartInstanceResult

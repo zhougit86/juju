@@ -398,6 +398,7 @@ func (cfg *InstanceConfig) AgentConfig(
 		Model:             cfg.APIInfo.ModelTag,
 	}
 	if cfg.Bootstrap == nil {
+		//logger.Debugf("feng Check what is the config", configParams)
 		return agent.NewAgentConfig(configParams)
 	}
 	return agent.NewStateMachineConfig(configParams, cfg.Bootstrap.StateServingInfo)
