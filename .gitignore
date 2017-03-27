@@ -12,5 +12,5 @@ TAGS
 .emacs.desktop.lock
 *.test
 *.sw[nop]
-.idea/
+.idea/*
 #*.go#
