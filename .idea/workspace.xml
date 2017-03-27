@@ -2,26 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="56f408a6-a1b6-4af2-94e0-298ea41311a3" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/agent/agent.go" afterPath="$PROJECT_DIR$/agent/agent.go" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/agent/format-2.0.go" afterPath="$PROJECT_DIR$/agent/format-2.0.go" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/api/apiclient.go" afterPath="$PROJECT_DIR$/api/apiclient.go" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/api/application/client.go" afterPath="$PROJECT_DIR$/api/application/client.go" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apiserver/authentication/agent.go" afterPath="$PROJECT_DIR$/apiserver/authentication/agent.go" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cloudconfig/instancecfg/instancecfg.go" afterPath="$PROJECT_DIR$/cloudconfig/instancecfg/instancecfg.go" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cloudconfig/userdatacfg.go" afterPath="$PROJECT_DIR$/cloudconfig/userdatacfg.go" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cloudconfig/userdatacfg_unix.go" afterPath="$PROJECT_DIR$/cloudconfig/userdatacfg_unix.go" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmd/jujud/agent/agent.go" afterPath="$PROJECT_DIR$/cmd/jujud/agent/agent.go" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmd/jujud/agent/unit.go" afterPath="$PROJECT_DIR$/cmd/jujud/agent/unit.go" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/controller/authentication/authentication.go" afterPath="$PROJECT_DIR$/controller/authentication/authentication.go" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/environs/manual/provisioner.go" afterPath="$PROJECT_DIR$/environs/manual/provisioner.go" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/juju/deploy.go" afterPath="$PROJECT_DIR$/juju/deploy.go" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/provider/common/bootstrap.go" afterPath="$PROJECT_DIR$/provider/common/bootstrap.go" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/provider/xclarity/broker.go" afterPath="$PROJECT_DIR$/provider/xclarity/broker.go" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/state/addmachine.go" afterPath="$PROJECT_DIR$/state/addmachine.go" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/state/machine.go" afterPath="$PROJECT_DIR$/state/machine.go" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/state/state.go" afterPath="$PROJECT_DIR$/state/state.go" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/worker/dependency/util.go" afterPath="$PROJECT_DIR$/worker/dependency/util.go" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/worker/provisioner/provisioner_task.go" afterPath="$PROJECT_DIR$/worker/provisioner/provisioner_task.go" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -127,11 +108,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="authentication.go" pinned="false" current-in-tab="true">
+      <file leaf-file-name="authentication.go" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/controller/authentication/authentication.go">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="441">
               <caret line="81" column="25" lean-forward="false" selection-start-line="81" selection-start-column="25" selection-end-line="81" selection-end-column="25" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="285">
+              <caret line="15" column="2" lean-forward="false" selection-start-line="15" selection-start-column="2" selection-end-line="15" selection-end-column="2" />
               <folding />
             </state>
           </provider>
@@ -192,6 +183,7 @@
         <option value="$PROJECT_DIR$/worker/provisioner/provisioner_task.go" />
         <option value="$PROJECT_DIR$/apiserver/authentication/agent.go" />
         <option value="$PROJECT_DIR$/api/apiclient.go" />
+        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
@@ -243,38 +235,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="juju" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="juju" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="juju" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="apiserver" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="juju" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="juju" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="apiserver" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="authentication" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -583,13 +543,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/cmd/jujud/agent/unit.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2033">
-          <caret line="131" column="62" lean-forward="false" selection-start-line="131" selection-start-column="8" selection-end-line="131" selection-end-column="62" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/worker/dependency/util.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="342">
@@ -946,6 +899,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="441">
           <caret line="81" column="25" lean-forward="false" selection-start-line="81" selection-start-column="25" selection-end-line="81" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="15" column="2" lean-forward="false" selection-start-line="15" selection-start-column="2" selection-end-line="15" selection-end-column="2" />
           <folding />
         </state>
       </provider>
