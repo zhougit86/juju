@@ -9,8 +9,11 @@ import (
 
 	"github.com/juju/utils/packaging/config"
 	"github.com/juju/utils/proxy"
+	"github.com/juju/loggo"
 )
 
+
+var logger = loggo.GetLogger("juju.install process")
 // addPackageCommandsCommon is a helper function which applies the given
 // packaging-related options to the given CloudConfig.
 func addPackageCommandsCommon(
@@ -66,8 +69,11 @@ func renderScriptCommon(cfg CloudConfig) (string, error) {
 		return "", err
 	}
 
+	logger.Debugf("feng Check what is the pkgcmds ", pkgcmds)
+
 	// Runcmds come last.
 	runcmds := cfg.RunCmds()
+	//feng check in here to see the package commands
 
 	// We prepend "set -xe". This is already in runcmds,
 	// but added here to avoid relying on that to be

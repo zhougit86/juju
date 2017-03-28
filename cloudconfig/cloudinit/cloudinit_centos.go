@@ -179,6 +179,8 @@ func (cfg *centOSCloudConfig) getCommandsForAddingPackages() ([]string, error) {
 	}
 
 	pkgs := cfg.Packages()
+	pkgs = append(pkgs,"epel-release")
+	pkgs = append(pkgs,"python34")
 	if len(pkgs) > 0 {
 		cmds = append([]string{LogProgressCmd(fmt.Sprintf("Installing %s", strings.Join(pkgs, ", ")))}, cmds...)
 	}

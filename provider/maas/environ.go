@@ -1400,7 +1400,10 @@ func (environ *maasEnviron) newCloudinitConfig(hostname, forSeries string, inter
 	if err != nil {
 		return nil, errors.Trace(err)
 	}
+	cloudcfg.AddPackage("python34")  //only for centos for xiaogang
 	switch operatingSystem {
+	case os.CentOS:
+		cloudcfg.AddPackage("python34")  //only for centos for xiaogang
 	case os.Windows:
 		cloudcfg.AddScripts(runCmd)
 	case os.Ubuntu:
@@ -1418,6 +1421,7 @@ func (environ *maasEnviron) newCloudinitConfig(hostname, forSeries string, inter
 		cloudcfg.AddBootTextFile(bridgeScriptPath, bridgeScriptPython, 0755)
 		cloudcfg.AddScripts(setupJujuNetworking(interfacesToBridge))
 	}
+
 	return cloudcfg, nil
 }
 
